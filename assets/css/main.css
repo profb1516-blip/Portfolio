@@ -1534,55 +1534,55 @@ body.light {
 }
 
 /*--------------------------------------------------------------
-# Testimonials Section
+# volunteers Section
 --------------------------------------------------------------*/
-.testimonials .testimonials-carousel,
-.testimonials .testimonials-slider {
+.volunteers .volunteers-carousel,
+.volunteers .volunteers-slider {
   overflow: hidden;
 }
 
-.testimonials .testimonial-item .testimonial-content {
+.volunteers .volunteer-item .volunteer-content {
   border-left: 3px solid var(--accent-color);
   padding-left: 30px;
 }
 
-.testimonials .testimonial-item .testimonial-img {
+.volunteers .volunteer-item .volunteer-img {
   border-radius: 50%;
   border: 4px solid var(--background-color);
   margin: 0 auto;
 }
 
-.testimonials .testimonial-item h3 {
+.volunteers .volunteer-item h3 {
   font-size: 20px;
   font-weight: bold;
   margin: 10px 0 5px 0;
 }
 
-.testimonials .testimonial-item h4 {
+.volunteers .volunteer-item h4 {
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 40%);
   margin: 0 0 10px 0;
 }
 
-.testimonials .testimonial-item .stars i {
+.volunteers .volunteer-item .stars i {
   color: #ffc107;
   margin: 0 1px;
 }
 
-.testimonials .testimonial-item .quote-icon-left,
-.testimonials .testimonial-item .quote-icon-right {
+.volunteers .volunteer-item .quote-icon-left,
+.volunteers .volunteer-item .quote-icon-right {
   color: color-mix(in srgb, var(--accent-color), transparent 50%);
   font-size: 26px;
   line-height: 0;
 }
 
-.testimonials .testimonial-item .quote-icon-left {
+.volunteers .volunteer-item .quote-icon-left {
   display: inline-block;
   left: -5px;
   position: relative;
 }
 
-.testimonials .testimonial-item .quote-icon-right {
+.volunteers .volunteer-item .quote-icon-right {
   display: inline-block;
   right: -5px;
   position: relative;
@@ -1590,27 +1590,27 @@ body.light {
   transform: scale(-1, -1);
 }
 
-.testimonials .testimonial-item p {
+.volunteers .volunteer-item p {
   font-style: italic;
 }
 
-.testimonials .swiper-wrapper {
+.volunteers .swiper-wrapper {
   height: auto;
 }
 
-.testimonials .swiper-pagination {
+.volunteers .swiper-pagination {
   margin-top: 30px;
   position: relative;
 }
 
-.testimonials .swiper-pagination .swiper-pagination-bullet {
+.volunteers .swiper-pagination .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background-color: color-mix(in srgb, var(--default-color), transparent 85%);
   opacity: 1;
 }
 
-.testimonials .swiper-pagination .swiper-pagination-bullet-active {
+.volunteers .swiper-pagination .swiper-pagination-bullet-active {
   background-color: var(--accent-color);
 }
 
@@ -3096,4 +3096,181 @@ main,
 footer {
   position: relative;
   z-index: 2;
+}
+#smoke-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+}
+/* ============================= */
+/* SKILL BOX BASE STYLE */
+/* ============================= */
+
+.skill-box {
+  position: relative;
+  background: rgba(15, 25, 34, 0.85);
+  border: 1px solid rgba(0, 180, 255, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  height: 100%;
+  transition: 
+    transform 0.45s ease,
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+  overflow: hidden;
+}
+
+/* ============================= */
+/* GLOW LAYER (MULTI-LAYER) */
+/* ============================= */
+
+.skill-box::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(0, 180, 255, 0.6),
+    transparent
+  );
+  opacity: 0;
+  filter: blur(14px);
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+/* ============================= */
+/* HOVER EFFECT */
+/* ============================= */
+
+.skill-box:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(0, 180, 255, 0.9);
+  box-shadow:
+    0 0 12px rgba(0, 180, 255, 0.35),
+    0 0 28px rgba(0, 180, 255, 0.25),
+    inset 0 0 18px rgba(0, 180, 255, 0.15);
+}
+
+/* Glow ring visible on hover */
+.skill-box:hover::before {
+  opacity: 1;
+  animation: glowPulse 2.4s ease-in-out infinite;
+}
+
+/* ============================= */
+/* SLOW BLINK / PULSE */
+/* ============================= */
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* ============================= */
+/* PROGRESS BAR STYLE */
+/* ============================= */
+
+.progress {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #00b4ff,
+    #38d9ff
+  );
+  border-radius: 10px;
+  transition: width 0.6s ease;
+}
+/* ================================
+   LIVE DEMO – MOVING COLOR BORDER
+================================ */
+
+.live-demo-btn {
+  position: relative;
+  display: inline-block;
+  padding: 10px 26px;
+  margin: 14px 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 30px;
+  background: #0f172a;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Animated Border Layer */
+.live-demo-btn::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 30px;
+  background: linear-gradient(
+    90deg,
+    #00f2fe,
+    #4facfe,
+    #a855f7,
+    #ec4899,
+    #00f2fe
+  );
+  background-size: 300% 300%;
+  animation: borderMove 4s linear infinite;
+  z-index: -1;
+}
+
+/* Inner Button Mask */
+.live-demo-btn::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #0f172a;
+  border-radius: 28px;
+  z-index: -1;
+}
+
+/* Hover Effect */
+.live-demo-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow:
+    0 0 15px rgba(79, 172, 254, 0.6),
+    0 0 30px rgba(168, 85, 247, 0.4);
+}
+
+/* Border Animation */
+@keyframes borderMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 576px) {
+  .live-demo-btn {
+    font-size: 13px;
+    padding: 9px 20px;
+  }
 }

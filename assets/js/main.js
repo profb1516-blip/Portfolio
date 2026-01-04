@@ -228,3 +228,85 @@ let currentY = mouseY;
 
 let hideTimeout;
 
+const canvas = document.getElementById("smoke-canvas");
+const ctx = canvas.getContext("2d");
+
+let w, h;
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+ctx.globalCompositeOperation = "screen";
+
+const particles = [];
+const colors = [
+  [255, 80, 120],   // pink
+  [255, 180, 80],   // orange
+  [120, 180, 255],  // blue
+  [160, 120, 255],  // purple
+  [120, 255, 200]   // cyan
+];
+
+class SmokeParticle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = Math.random() * 50 + 40;
+    this.life = 0;
+    this.maxLife = 90; // fast vanish
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = -Math.random() * 0.4 - 0.2;
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  draw() {
+    const t = this.life / this.maxLife;
+    const alpha = Math.exp(-t * 4);
+
+    const g = ctx.createRadialGradient(
+      this.x,
+      this.y,
+      0,
+      this.x,
+      this.y,
+      this.size
+    );
+
+    g.addColorStop(0, `rgba(${this.color.join(",")}, ${alpha * 0.35})`);
+    g.addColorStop(0.4, `rgba(${this.color.join(",")}, ${alpha * 0.18})`);
+    g.addColorStop(1, `rgba(${this.color.join(",")}, 0)`);
+
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.size += 0.15;
+    this.life++;
+  }
+}
+
+window.addEventListener("mousemove", e => {
+  particles.push(new SmokeParticle(e.clientX, e.clientY));
+  if (particles.length > 120) particles.shift();
+});
+
+function animate() {
+  ctx.clearRect(0, 0, w, h);
+
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.life > p.maxLife) particles.splice(i, 1);
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
